@@ -102,7 +102,7 @@ def build_pro_contractor_workbook(output_path: str | Path) -> Path:
         ("", ""),
         ("HOW TO USE THIS WORKBOOK IN 3 MINUTES EACH WEEK", ""),
         ("Step 1 — Tab 2 (Project & Rates)", "Enter blue input cells once per contract: project details, SAM.gov prevailing rates, bona fide fringe plans, and apprentice programs."),
-        ("Step 2 — Tab 3 (Weekly Crew Entry)", "Enter blue daily ST/OT hours, hourly rates paid, and payroll tax/FICA/other deductions for up to 40 classification rows."),
+        ("Step 2 — Tab 3 (Weekly Crew Entry)", "Enter blue daily ST/OT hours, hourly rates paid, and payroll tax/FICA/other deductions for up to 50 classification rows."),
         ("Step 3 — Tab 4 (Live Audit Gate)", "Verify 'SUBMISSION READY (0 BLOCKERS)' — automatically checks DBRA weighted overtime, CWHSSA >40h, SSN leaks, and Col 9 math."),
         ("Step 4 — Tabs 5 & 6 (Print WH-347)", "Print Tab 5 (Page 1 Payroll) and Tab 6 (Page 2 Statement of Compliance) directly to Landscape PDF!"),
     ]
@@ -253,7 +253,7 @@ def build_pro_contractor_workbook(output_path: str | Path) -> Path:
         ws_cfg.column_dimensions[k].width = w
 
     # =========================================================================
-    # TAB 3: WEEKLY CREW PAYROLL ENTRY & LIVE CALCULATOR (UP TO 24 ROWS)
+    # TAB 3: WEEKLY CREW PAYROLL ENTRY & LIVE CALCULATOR (UP TO 50 ROWS)
     # =========================================================================
     ws_ent = wb.create_sheet("3_Weekly_Crew_Entry")
     _style_banner(
@@ -283,7 +283,7 @@ def build_pro_contractor_workbook(output_path: str | Path) -> Path:
     ws_ent.row_dimensions[4].height = 30
 
     seen_sample_eno: set[int] = set()
-    for slot in range(20):
+    for slot in range(50):
         r = 5 + slot
         wl = sample.worker_lines[slot] if slot < len(sample.worker_lines) else None
         is_prim = False
@@ -346,7 +346,7 @@ def build_pro_contractor_workbook(output_path: str | Path) -> Path:
         c33 = ws_ent.cell(
             row=r,
             column=33,
-            value=c33_val if c33_val is not None else f'=IF(A{r}="","",IF(COUNTIF($A$5:A{r},A{r})=1,SUMIF($A$5:$A$24,A{r},$AF$5:$AF$24),""))',
+            value=c33_val if c33_val is not None else f'=IF(A{r}="","",IF(COUNTIF($A$5:A{r},A{r})=1,SUMIF($A$5:$A$54,A{r},$AF$5:$AF$54),""))',
         )
         c33.fill = FILL_INPUT if c33_val is not None else FILL_ZEBRA
         c33.font = F_INPUT if c33_val is not None else F_CALC
@@ -389,13 +389,13 @@ def build_pro_contractor_workbook(output_path: str | Path) -> Path:
         for m_col in range(26, 39):
             ws_ent.cell(row=r, column=m_col).number_format = "$#,##0.00"
 
-    # Conditional formatting on Audit Status column (AM5:AM24)
+    # Conditional formatting on Audit Status column (AM5:AM54)
     ws_ent.conditional_formatting.add(
-        "AM5:AM24",
+        "AM5:AM54",
         FormulaRule(formula=['ISNUMBER(SEARCH("BLOCKER",AM5))'], fill=FILL_ERR, font=Font(color=ERR_RED_FG, bold=True)),
     )
     ws_ent.conditional_formatting.add(
-        "AM5:AM24",
+        "AM5:AM54",
         CellIsRule(operator="equal", formula=['"PASS"'], fill=FILL_OK, font=Font(color=OK_GREEN_FG, bold=True)),
     )
 
@@ -411,13 +411,13 @@ def build_pro_contractor_workbook(output_path: str | Path) -> Path:
     )
     kpis = [
         ("Overall WH-347 Submission Gate", '=IF(B6>0,"HOLD — FIX BLOCKERS BEFORE SIGNING","SUBMISSION READY — 0 BLOCKERS")'),
-        ("Active Blocker Count", '=COUNTIF(\'3_Weekly_Crew_Entry\'!AM5:AM24,"BLOCKER*") + IF(\'2_Project_&_SAM_Rates\'!B12="",1,0)'),
-        ("Total Project Hours (Col 5)", "=SUM('3_Weekly_Crew_Entry'!Y5:Y24)"),
-        ("Total Bona Fide Plan Credit (Col 6B)", "=SUM('3_Weekly_Crew_Entry'!AD5:AD24)"),
-        ("Total Cash Paid in Lieu of Fringes (Col 6C)", "=SUM('3_Weekly_Crew_Entry'!AE5:AE24)"),
-        ("Total DBRA Project Gross Earned (Col 7A)", "=SUM('3_Weekly_Crew_Entry'!AF5:AF24)"),
-        ("Total Net Wages Paid All Work (Col 9)", "=SUM('3_Weekly_Crew_Entry'!AL5:AL24)"),
-        ("Page 2 Box 4 Apprentice Mode", '=IF(COUNTIF(\'3_Weekly_Crew_Entry\'!F5:F24,"RA")>0,"CHECK BOX 4 & LIST OA/SAA PROGRAM","LEAVE UNCHECKED & PRINT \'N/A\'")'),
+        ("Active Blocker Count", '=COUNTIF(\'3_Weekly_Crew_Entry\'!AM5:AM54,"BLOCKER*") + IF(\'2_Project_&_SAM_Rates\'!B12="",1,0)'),
+        ("Total Project Hours (Col 5)", "=SUM('3_Weekly_Crew_Entry'!Y5:Y54)"),
+        ("Total Bona Fide Plan Credit (Col 6B)", "=SUM('3_Weekly_Crew_Entry'!AD5:AD54)"),
+        ("Total Cash Paid in Lieu of Fringes (Col 6C)", "=SUM('3_Weekly_Crew_Entry'!AE5:AE54)"),
+        ("Total DBRA Project Gross Earned (Col 7A)", "=SUM('3_Weekly_Crew_Entry'!AF5:AF54)"),
+        ("Total Net Wages Paid All Work (Col 9)", "=SUM('3_Weekly_Crew_Entry'!AL5:AL54)"),
+        ("Page 2 Box 4 Apprentice Mode", '=IF(COUNTIF(\'3_Weekly_Crew_Entry\'!F5:F54,"RA")>0,"CHECK BOX 4 & LIST OA/SAA PROGRAM","LEAVE UNCHECKED & PRINT \'N/A\'")'),
         ("Page 2 Box 5 Fringe Subsection Mode", '=IF(B9>0,"CHECK BOX 5 & COMPLETE HOURLY CREDIT GRID",IF(B10>0,"CHECK BOX 5 ONLY (100% CASH IN COL 6C)","UNCHECKED"))'),
     ]
     for idx, (k_lbl, k_form) in enumerate(kpis, start=5):
@@ -480,7 +480,7 @@ def build_pro_contractor_workbook(output_path: str | Path) -> Path:
         cell.border = GRID_BORDER
     ws_p1.row_dimensions[5].height = 28
 
-    for slot in range(16):
+    for slot in range(50):
         rp = 6 + slot
         re_row = 5 + slot
         for c_idx, scol in enumerate(src_cols, start=1):
@@ -516,8 +516,8 @@ def build_pro_contractor_workbook(output_path: str | Path) -> Path:
         ("[X]", "Box 1: Payroll information is correct and complete; wage and fringe rates paid >= applicable Wage Determination."),
         ("[X]", "Box 2: All regular payrolls and required basic records are complete, accurate, and available upon DOL/agency request."),
         ("[X]", "Box 3: Classifications reported for each laborer or mechanic match the work actually performed."),
-        ('=IF(COUNTIF(\'3_Weekly_Crew_Entry\'!F5:F24,"RA")>0,"[X]","[  ]")', "Box 4: Registered Apprentices duly registered with DOL OA or recognized State Apprenticeship Agency (SAA)."),
-        ('=IF((SUM(\'3_Weekly_Crew_Entry\'!AD5:AD24)+SUM(\'3_Weekly_Crew_Entry\'!AE5:AE24))>0,"[X]","[  ]")', "Box 5: Fringe benefits paid in cash (Col 6C) and/or bona fide benefit plans (Col 6B & Hourly Credit table)."),
+        ('=IF(COUNTIF(\'3_Weekly_Crew_Entry\'!F5:F54,"RA")>0,"[X]","[  ]")', "Box 4: Registered Apprentices duly registered with DOL OA or recognized State Apprenticeship Agency (SAA)."),
+        ('=IF((SUM(\'3_Weekly_Crew_Entry\'!AD5:AD54)+SUM(\'3_Weekly_Crew_Entry\'!AE5:AE54))>0,"[X]","[  ]")', "Box 5: Fringe benefits paid in cash (Col 6C) and/or bona fide benefit plans (Col 6B & Hourly Credit table)."),
         ("[X]", "Box 6: All workers paid full weekly wages earned; no kickbacks or impermissible deductions under 29 CFR Part 3."),
     ]
     for idx, (box_f, txt) in enumerate(certs, start=5):
@@ -525,9 +525,9 @@ def build_pro_contractor_workbook(output_path: str | Path) -> Path:
         ws_p2.cell(row=idx, column=2, value=txt).font = F_BODY
 
     ws_p2["A12"] = "Box 4 Apprenticeship Program:"
-    ws_p2["B12"] = '=IF(COUNTIF(\'3_Weekly_Crew_Entry\'!F5:F24,"RA")>0,\'2_Project_&_SAM_Rates\'!A29,"N/A")'
+    ws_p2["B12"] = '=IF(COUNTIF(\'3_Weekly_Crew_Entry\'!F5:F54,"RA")>0,\'2_Project_&_SAM_Rates\'!A29,"N/A")'
     ws_p2["D12"] = "Agency:"
-    ws_p2["E12"] = '=IF(COUNTIF(\'3_Weekly_Crew_Entry\'!F5:F24,"RA")>0,\'2_Project_&_SAM_Rates\'!B29,"")'
+    ws_p2["E12"] = '=IF(COUNTIF(\'3_Weekly_Crew_Entry\'!F5:F54,"RA")>0,\'2_Project_&_SAM_Rates\'!B29,"")'
 
     ws_p2["A14"] = "Additional Remarks:"
     ws_p2["B14"] = "='2_Project_&_SAM_Rates'!B18"
@@ -551,49 +551,63 @@ def build_free_starter_workbook(output_path: str | Path) -> Path:
     ws.title = "WH347_2026_Free_QuickCheck"
     _style_banner(
         ws,
-        10,
+        15,
         "ClearWage WH-347 (Rev. Jan 2025 / Oct 2026 Mandatory) — Free 5-Worker Compliance Quick-Check",
-        "Check DBRA Weighted Overtime + New Columns 6B & 6C Instantly  |  Full Multi-Crew Print Suite & Official PDF Generator: clearwage-wh347",
+        "Auto-Splits Cols 6A, 6B, 6C & 7A + Checks 29 CFR § 5.32 Overtime  |  50-Worker 6-Tab Pro Suite: clearwage-wh347",
     )
-    headers = [
+    in_headers = [
         "Worker Name", "1E ID (Last4)", "2 Status (J/RA)", "WD Base $/hr", "WD Fringe $/hr",
-        "ST Hrs", "OT Hrs", "6A ST Paid $/hr", "6A OT Paid $/hr", "Plan $/hr + Cash Fringe $/hr",
+        "ST Hrs", "OT Hrs", "6A ST $/hr", "6A OT $/hr", "Plan Fringe $/hr", "Cash-in-Lieu $/hr",
     ]
-    for i, h in enumerate(headers, start=1):
+    calc_headers = [
+        "6B Plan Credit $", "6C Cash Fringe $", "7A Project Gross $", "2026 Compliance Verdict",
+    ]
+    for i, h in enumerate(in_headers + calc_headers, start=1):
         c = ws.cell(row=4, column=i, value=h)
         c.font = F_HDR
         c.fill = FILL_HDR
+        c.alignment = Alignment(horizontal="center", vertical="center", wrap_text=True)
         c.border = GRID_BORDER
-    ws.cell(row=4, column=11, value="6B+6C Fringe Total $").font = F_HDR
-    ws.cell(row=4, column=11).fill = FILL_HDR
-    ws.cell(row=4, column=12, value="2026 Compliance Verdict").font = F_HDR
-    ws.cell(row=4, column=12).fill = FILL_HDR
+    ws.row_dimensions[4].height = 28
 
     demo_rows = [
-        ("Ramirez, Carlos", "4829", "J", 38.50, 14.20, 40, 4, 39.00, 58.50, 14.20),
-        ("Kowalski, Tomasz", "3318", "J", 22.40, 7.60, 40, 0, 22.40, 33.60, 7.60),
+        ("Ramirez, Carlos", "4829", "J", 38.50, 14.20, 40, 4, 39.00, 58.50, 14.20, 0.00),
+        ("Kowalski, Tomasz", "3318", "J", 22.40, 7.60, 40, 0, 22.40, 33.60, 4.00, 3.60),
     ]
     for idx in range(5):
         r = 5 + idx
-        dr = demo_rows[idx] if idx < len(demo_rows) else ("", "", "J", None, None, None, None, None, None, None)
+        dr = demo_rows[idx] if idx < len(demo_rows) else ("", "", "J", None, None, None, None, None, None, None, None)
         for c_i, v in enumerate(dr, start=1):
             c = ws.cell(row=r, column=c_i, value=v)
             c.fill = FILL_INPUT
             c.font = F_INPUT
             c.border = GRID_BORDER
-        ws.cell(row=r, column=11, value=f'=IF(A{r}="","",ROUND((F{r}+G{r})*J{r},2))').number_format = "$#,##0.00"
-        ws.cell(
+            if c_i in (4, 5, 8, 9, 10, 11):
+                c.number_format = "$#,##0.00"
+        c_6b = ws.cell(row=r, column=12, value=f'=IF(A{r}="","",ROUND((F{r}+G{r})*J{r},2))')
+        c_6c = ws.cell(row=r, column=13, value=f'=IF(A{r}="","",ROUND((F{r}+G{r})*K{r},2))')
+        c_7a = ws.cell(row=r, column=14, value=f'=IF(A{r}="","",ROUND(F{r}*H{r}+G{r}*I{r}+M{r},2))')
+        c_verd = ws.cell(
             row=r,
-            column=12,
+            column=15,
             value=(
                 f'=IF(A{r}="","",'
                 f'IF(LEN(TRIM(B{r}))>=9,"BLOCKER: Full SSN Forbidden",'
-                f'IF((H{r}+J{r})+0.001<(D{r}+E{r}),"BLOCKER: ST+Fringe Shortfall",'
-                f'IF(AND(G{r}>0,I{r}+0.001<ROUND(1.5*MAX(D{r},H{r}),2)),"BLOCKER: DBRA OT Shortfall","PASS - 2026 COMPLIANT"))))'
+                f'IF(AND(C{r}<>"J",C{r}<>"RA"),"BLOCKER: Col 2 Must Be J or RA",'
+                f'IF((H{r}+J{r}+K{r})+0.001<(D{r}+E{r}),"BLOCKER: ST+Fringe Shortfall",'
+                f'IF(AND(G{r}>0,(I{r}+J{r}+K{r})+0.001<ROUND(1.5*MAX(D{r},H{r})+E{r},2)),"BLOCKER: DBRA OT Shortfall","PASS - 2026 COMPLIANT")))))'
             ),
-        ).font = F_CALC
-    for col_i in range(1, 13):
-        ws.column_dimensions[get_column_letter(col_i)].width = 19
+        )
+        for cc in (c_6b, c_6c, c_7a):
+            cc.font = F_CALC
+            cc.fill = FILL_ZEBRA
+            cc.border = GRID_BORDER
+            cc.number_format = "$#,##0.00"
+        c_verd.font = F_CALC
+        c_verd.fill = FILL_ZEBRA
+        c_verd.border = GRID_BORDER
+    for col_i in range(1, 16):
+        ws.column_dimensions[get_column_letter(col_i)].width = 18
 
     out = Path(output_path)
     out.parent.mkdir(parents=True, exist_ok=True)

@@ -615,12 +615,12 @@ function renderGateBanner(res) {
     el.className = "gate-banner gate-pass";
     el.innerHTML = `
       <div>
-        <div class="gate-title">&#10003; PASSED 2026 SUBMISSION GATE — READY FOR OFFICIAL DOL WH-347 PDF</div>
-        <div style="font-size:0.84rem;margin-top:0.2rem;">All 26 statutory DBRA, CWHSSA, Copeland Act &amp; Revised Jan-2025 WH-347 checks clear.</div>
+        <div class="gate-title">&#10003; PASSED OCT 2026 GATE: YOUR OFFICIAL DOL WH-347 PDF IS READY</div>
+        <div style="font-size:0.84rem;margin-top:0.2rem;">All 26 DBRA, CWHSSA, Copeland Act &amp; Revised Jan-2025 WH-347 checks passed.</div>
       </div>
       <div class="gate-metrics">
         <span class="metric-pill num">0 Blockers</span>
-        <span class="metric-pill num">${res.warnings} Informational Notice(s)</span>
+        <span class="metric-pill num">${res.warnings} Notice(s)</span>
         <span class="metric-pill num">Col 6B Plan Credit: $${fmtMoney(res.total6B)}</span>
         <span class="metric-pill num">Col 6C Cash Fringe: $${fmtMoney(res.total6C)}</span>
       </div>
@@ -629,13 +629,13 @@ function renderGateBanner(res) {
     el.className = "gate-banner gate-fail";
     el.innerHTML = `
       <div>
-        <div class="gate-title">&#9888; PAYROLL REJECTION &amp; WITHHOLDING RISK: ${res.blockers} STATUTORY BLOCKER(S) DETECTED</div>
-        <div style="font-size:0.84rem;margin-top:0.2rem;">Contracting Officers &amp; Prime GCs withhold progress payments when these violations appear on Form WH-347.</div>
+        <div class="gate-title">&#9888; PROGRESS DRAW HOLD-BACK RISK: ${res.blockers} STATUTORY BLOCKER(S) FOUND</div>
+        <div style="font-size:0.84rem;margin-top:0.2rem;">Prime GCs &amp; Contracting Officers freeze your progress draw when these errors appear on Form WH-347.</div>
       </div>
       <div class="gate-metrics">
-        <span class="metric-pill num">Back-Wage Restitution: $${fmtMoney(res.totalBackWages)}</span>
-        <span class="metric-pill num">CWHSSA Penalty Risk: $${fmtMoney(res.cwhssaDamages)}</span>
-        <button type="button" class="btn btn-accent btn-sm" onclick="autoRemediateTraps()">&#9889; 1-Click Auto-Fix Sample Violations</button>
+        <span class="metric-pill num">Back-Wage Shortfall: $${fmtMoney(res.totalBackWages)}</span>
+        <span class="metric-pill num">CWHSSA Fine Risk: $${fmtMoney(res.cwhssaDamages)}</span>
+        <button type="button" class="btn btn-accent btn-sm" onclick="autoRemediateTraps()">&#9889; 1-Click Auto-Fix Sample Errors</button>
       </div>
     `;
   }
@@ -680,8 +680,8 @@ function renderFindings(res) {
   const box = document.getElementById("findings_list");
   if (res.findings.length === 0) {
     box.innerHTML = `<div class="finding-card" style="border-left-color:var(--emerald-ok);background:var(--emerald-bg);">
-      <div class="finding-title" style="color:#065f46;">Zero Compliance Findings — Ready to Sign &amp; Transmit</div>
-      <div class="finding-detail">Page 1 Cols 1A–9, Page 2 Boxes 1–6, Mandatory "${res.apprenticeTableNA ? 'N/A' : 'OA/SAA'}" Apprentice Table rule, and Fringe Benefit Matrix are reconciled to the cent.</div>
+      <div class="finding-title" style="color:#065f46;">Zero Compliance Blockers: Ready for Your Signature</div>
+      <div class="finding-detail">Your Page 1 Columns 1A–9, Page 2 Boxes 1–6, Box 4 "${res.apprenticeTableNA ? 'N/A' : 'OA/SAA'}" Apprentice rule, and Fringe Matrix tie out to the cent.</div>
     </div>`;
     return;
   }
@@ -885,7 +885,7 @@ window.handleCsvUpload = function(ev) {
 window.compileOfficialDolPdf = async function() {
   const res = computeAndAudit(state);
   if (state.rows.length > CHECKOUT_CONFIG.freePdfMaxRows) {
-    openProModal(`Your payroll has ${state.rows.length} classification rows. The free browser tool compiles up to ${CHECKOUT_CONFIG.freePdfMaxRows} rows per sheet; unlock the ClearWage Pro Contractor Suite ($${CHECKOUT_CONFIG.priceUsd} one-time) or use the open-core Python CLI for unlimited multi-sheet crews.`);
+    openProModal(`Your payroll has ${state.rows.length} crew rows. The free browser tool compiles up to ${CHECKOUT_CONFIG.freePdfMaxRows} rows per sheet. Get the ClearWage Pro Contractor Suite ($${CHECKOUT_CONFIG.priceUsd} once) for 50-worker macro-free Excel sheets, or run the free Python CLI for multi-page crews.`);
     return;
   }
 
@@ -1135,7 +1135,7 @@ window.openProModal = function(customReason) {
     return;
   }
   const msgEl = document.getElementById("pro_modal_reason");
-  msgEl.textContent = customReason || "Get the complete 6-Tab Macro-Free Excel Contractor Suite (.xlsx for Windows, Mac & Web), 50-Worker Multi-Crew Auto-Rollup, Copeland Act Deduction Templates, & 2026 GC Compliance Pack.";
+  msgEl.textContent = customReason || "Get the 6-tab macro-free .XLSX Master Workbook (Windows, Mac, and Google Sheets) for up to 50 crew rows, split-trade Col 1A rollup, Copeland Act consent PDF, and 3-page VA Hospital sample filing.";
   document.getElementById("pro_modal").classList.add("open");
 };
 

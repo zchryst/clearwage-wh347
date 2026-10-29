@@ -3,15 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Davis-Bacon &amp; CWHSSA Overtime Rate Calculator (29 CFR § 5.32 Half-Time + Fringe Rule)</title>
-  <meta name="description" content="Calculate legal Davis-Bacon and CWHSSA overtime rates under 29 CFR § 5.32 and 40 U.S.C. § 3702. Avoid $32/day CWHSSA liquidated damages and 1.5x fringe overpayments or cash-fringe underpayments.">
+  <title>Davis-Bacon &amp; CWHSSA Overtime Calculator (29 CFR § 5.32 Half-Time + Fringe Rule)</title>
+  <meta name="description" content="Calculate legal Davis-Bacon and CWHSSA overtime rates under 29 CFR § 5.32 and 40 U.S.C. § 3702. Stop overpaying 1.5x fringes or risking $32/day CWHSSA liquidated damages.">
   <link rel="canonical" href="https://zchryst.github.io/clearwage-wh347/davis-bacon-overtime-calculator.html">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <div class="mandate-bar">
-    <strong>AVOID $32/DAY CWHSSA PENALTIES:</strong> Verify Davis-Bacon overtime rates &amp; generate Form WH-347 free in your browser.
-    <a href="index.html#workbench">Verify Overtime Payroll Now &rarr;</a>
+    <strong>STOP $32/DAY CWHSSA PENALTIES:</strong> Check your crew's Davis-Bacon overtime math &amp; stamp Form WH-347 free in your browser.
+    <a href="index.html#workbench">Check Your Overtime Math Free &rarr;</a>
   </div>
 
   <header class="site-header">
@@ -30,26 +30,49 @@
   </header>
 
   <article class="article-wrap">
-    <span class="badge badge-warning" style="margin-bottom:0.75rem;">29 CFR § 5.32 · 40 U.S.C. § 3702 (CWHSSA)</span>
-    <h1>Davis-Bacon &amp; CWHSSA Overtime Formula: How the Half-Time Premium &amp; Fringe Rules Work</h1>
+    <span class="badge badge-warning" style="margin-bottom:0.75rem;">29 CFR &sect; 5.32 &middot; 40 U.S.C. &sect; 3702 (CWHSSA)</span>
+    <h1>Davis-Bacon &amp; CWHSSA Overtime Math: Stop Overpaying Fringes or Risking $32/Day Fines</h1>
     <p>
-      Standard commercial payroll software frequently miscalculates Davis-Bacon overtime in one of two costly ways: either multiplying <em>cash-in-lieu fringe benefits</em> by <code>1.5&times;</code> (overpaying labor costs by thousands of dollars) or multiplying an artificially low cash base rate by <code>1.5&times;</code> (triggering back-wage withholding and <strong>$32/day CWHSSA liquidated damages</strong> under <code>29 CFR § 5.5(b)(2)</code>).
+      Standard payroll software gets Davis-Bacon overtime wrong in two expensive ways. Either it multiplies your cash-in-lieu fringes by <code>1.5&times;</code> and bleeds thousands in extra labor cost, or it underpays the half-time base premium.
+    </p>
+    <p>
+      Underpaying by even ten cents an hour triggers back-wage withholding plus <strong>$32 per worker per day in CWHSSA liquidated damages</strong> (<code>29 CFR &sect; 5.5(b)(2)</code>).
     </p>
 
-    <h2>The Exact 29 CFR § 5.32 Overtime Equation</h2>
+    <h2>1. Your Exact 29 CFR &sect; 5.32 Overtime Formula</h2>
     <div class="callout">
-      <strong>Minimum Total Overtime Package (<code>$/hr</code>) =</strong><br>
-      <code>[ 1.0 &times; Regular/WD Basic Hourly Rate ] + [ 0.5 &times; max(SAM.gov WD Basic Rate, Actual Regular Base Rate) ] + [ 1.0 &times; Full Prevailing Hourly Fringe ]</code>
+      <strong>Your Minimum Hourly Overtime Package (<code>$/hr</code>) =</strong><br>
+      <code>[ 1.0 &times; Regular Cash Base Rate ] + [ 0.5 &times; max(SAM.gov WD Basic Rate, Your Regular Base Rate) ] + [ 1.0 &times; Full Prevailing Fringe ]</code>
     </div>
+
+    <h2>2. Three Overtime Rules Every Subcontractor Bookkeeper Needs</h2>
     <ul>
-      <li><strong>Fringes are owed on ALL hours (ST + OT) at 1.0&times;, NOT 1.5&times;:</strong> Under CWHSSA, prevailing fringe benefits must be paid for every overtime hour worked, but the <code>0.5&times;</code> overtime premium applies strictly to the basic/regular rate — never to bona fide plan credits or properly segregated Col 6C cash-in-lieu fringes.</li>
-      <li><strong>Paying above the SAM.gov basic rate raises the FLSA regular rate:</strong> If the Wage Determination sets Electrician basic pay at <code>$38.50/hr</code> + <code>$14.20/hr</code> fringe, and you pay an Electrician <code>$39.00/hr</code> base cash, their minimum Col 6A OT cash rate is <code>1.5 &times; $39.00 = $58.50/hr</code> (plus <code>$14.20/hr</code> fringe = <code>$72.70/hr</code> total package).</li>
-      <li><strong>Split-Classification &gt;40 Hour Trap:</strong> If one employee works <code>24 hours</code> as an Electrician and <code>22 hours</code> as an HVAC Mechanic on the same federal contract (<code>46 hours</code> total), CWHSSA mandates at least <code>6 hours</code> of overtime — even though neither trade exceeded 40 hours alone!</li>
+      <li>
+        <strong>Pay fringes at 1.0&times; on overtime, never 1.5&times;.</strong>
+        You owe full prevailing fringes on every overtime hour worked. However, the <code>0.5&times;</code> premium applies only to the base wage, never to Column 6B plan credits or Column 6C cash-in-lieu fringes.
+      </li>
+      <li>
+        <strong>Paying above the SAM.gov base rate raises your overtime floor.</strong>
+        Suppose SAM.gov sets Electrician pay at <code>$38.50/hr</code> base + <code>$14.20/hr</code> fringe, and you pay <code>$39.00/hr</code> base cash. Your minimum Column 6A overtime cash rate is <code>1.5 &times; $39.00 = $58.50/hr</code>, plus <code>$14.20/hr</code> fringe.
+      </li>
+      <li>
+        <strong>Watch the split-trade 40-hour trap.</strong>
+        Suppose one employee logs <code>24 hours</code> as an Electrician and <code>22 hours</code> as an HVAC Mechanic on the same federal job. That totals <code>46 hours</code>, so you owe <code>6 hours</code> of CWHSSA overtime even though neither trade crossed 40 hours alone.
+      </li>
     </ul>
 
-    <div class="btn-row" style="margin-top:1.75rem;">
-      <a href="index.html#workbench" class="btn btn-primary">Test Your Crew Overtime in the Live WH-347 Auditor &rarr;</a>
-      <a href="index.html#pricing" class="btn btn-outline">Get the 50-Worker Pro Excel Suite ($79)</a>
+    <div class="panel" style="margin-top:1.75rem;background:var(--bg-subtle);">
+      <h3 style="margin:0 0 0.4rem;font-size:1.05rem;color:var(--navy-brand);">Audit Your Crew's Weekly Overtime in 30 Seconds</h3>
+      <p style="font-size:0.88rem;color:var(--ink-secondary);margin:0 0 0.9rem;">
+        Test up to 5 crew rows free in your browser right now, or get the 6-tab macro-free <strong>50-Worker Pro Contractor Excel Suite ($79 one-time)</strong> with built-in <code>29 CFR &sect; 5.32</code> overtime floors.
+      </p>
+      <div class="btn-row">
+        <a href="index.html#workbench" class="btn btn-primary">Test Your Crew Overtime Free &rarr;</a>
+        <a href="index.html#pricing" class="btn btn-outline">Get 50-Worker Pro Excel Suite ($79)</a>
+      </div>
+      <div style="font-size:0.76rem;color:var(--ink-muted);margin-top:0.45rem;">
+        100% browser-local &middot; Zero SSN uploads &middot; Replaces $150/month payroll SaaS
+      </div>
     </div>
   </article>
 </body>
