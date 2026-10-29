@@ -896,10 +896,11 @@ window.compileOfficialDolPdf = async function() {
 
   try {
     const { PDFDocument, StandardFonts, rgb } = window.PDFLib;
-    const tplBytes = await fetch("assets/wh347_official.pdf").then(r => {
+    const rawBuf = await fetch("assets/wh347_official.pdf").then(r => {
       if (!r.ok) throw new Error("Failed to load official DOL WH-347 PDF template");
       return r.arrayBuffer();
     });
+    const tplBytes = new Uint8Array(rawBuf);
     const srcDoc = await PDFDocument.load(tplBytes);
     const outDoc = await PDFDocument.create();
     const [p1, p2] = await outDoc.copyPages(srcDoc, [0, 1]);
