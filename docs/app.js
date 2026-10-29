@@ -885,14 +885,14 @@ window.handleCsvUpload = function(ev) {
 window.compileOfficialDolPdf = async function() {
   const res = computeAndAudit(state);
   if (state.rows.length > CHECKOUT_CONFIG.freePdfMaxRows) {
-    openProModal(`Your payroll has ${state.rows.length} crew rows. The free browser tool compiles up to ${CHECKOUT_CONFIG.freePdfMaxRows} rows per sheet. Get the ClearWage Pro Contractor Suite ($${CHECKOUT_CONFIG.priceUsd} once) for 50-worker macro-free Excel sheets, or run the free Python CLI for multi-page crews.`);
+    openProModal(`Your payroll has ${state.rows.length} crew rows. The free online filler handles up to ${CHECKOUT_CONFIG.freePdfMaxRows} rows per sheet. Get the ClearWage Pro Contractor Suite ($${CHECKOUT_CONFIG.priceUsd} once) for 50-worker macro-free Excel sheets, or run the free Python CLI for multi-page crews.`);
     return;
   }
 
   const btn = document.getElementById("btn_compile_pdf");
   const origLabel = btn.innerHTML;
   btn.disabled = true;
-  btn.innerHTML = "Compiling Official DOL WH-347 PDF...";
+  btn.innerHTML = "Filling Official DOL WH-347 PDF...";
 
   try {
     const { PDFDocument, StandardFonts, rgb } = window.PDFLib;
