@@ -1,0 +1,14 @@
+# Smithery.ai MCP Server Configuration — ClearWage WH-347 (Rev. Jan 2025 / Mandatory Oct 2026)
+startCommand:
+  type: stdio
+  configSchema:
+    type: object
+    properties: {}
+  commandFunction: |-
+    (config) => ({
+      command: 'clearwage-mcp',
+      args: []
+    })
+build:
+  dockerfile: Dockerfile
+  dockerBuildPath: .

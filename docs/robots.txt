@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://zchryst.github.io/clearwage-wh347/sitemap.xml

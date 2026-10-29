@@ -1,0 +1,15 @@
+{
+  "$schema": "https://glama.ai/mcp/schemas/server.json",
+  "maintainers": [
+    "zchryst"
+  ],
+  "name": "clearwage-wh347",
+  "description": "Deterministic U.S. DOL Revised Form WH-347 (OMB 1235-0008, mandatory Oct 1, 2026) Davis-Bacon, CWHSSA & Copeland Act certified payroll compliance auditor, overtime calculator, and pixel-aligned official PDF compiler.",
+  "license": "MIT",
+  "categories": [
+    "finance",
+    "compliance",
+    "legal",
+    "construction"
+  ]
+}

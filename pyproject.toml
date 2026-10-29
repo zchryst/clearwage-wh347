@@ -1,0 +1,30 @@
+[build-system]
+requires = ["setuptools>=68.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "clearwage-wh347"
+version = "0.1.0"
+description = "Deterministic 2026 Revised DOL Form WH-347 (OMB 1235-0008) Davis-Bacon Certified Payroll Auditor, PDF Overlay Compiler, Macro-Free Excel Generator & MCP Server"
+readme = "README.md"
+requires-python = ">=3.11"
+license = {text = "MIT"}
+authors = [{name = "Zach Chrystall"}]
+dependencies = [
+  "openpyxl>=3.1.2",
+  "pymupdf>=1.24.0",
+]
+
+[project.optional-dependencies]
+mcp = ["fastmcp>=2.0.0"]
+dev = ["pytest>=8.0.0"]
+
+[project.scripts]
+clearwage = "clearwage_wh347.cli:main"
+clearwage-mcp = "clearwage_wh347.mcp_server:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+clearwage_wh347 = ["assets/*.pdf", "assets/*.json"]
