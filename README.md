@@ -25,7 +25,7 @@ Two acute pain points hit subcontractors, bookkeepers, and AI accounting agents 
 
 - **26-Rule Deterministic Statutory Audit** (`WH347-001` through `WH347-026`) with `29 CFR Parts 3 & 5` and `40 U.S.C. § 3702 (CWHSSA)` citations, exact back-wage restitution math, and `$32/day` CWHSSA liquidated damages alerts.
 - **Pixel-Exact Official DOL PDF Generation** in-browser (`pdf-lib`) or via Python (`pymupdf`), including automatic **Page 3 Copeland Act (`29 CFR § 3.5`) Itemized Deductions & Continuation Addenda**.
-- **Free 5-Worker Macro-Free Starter `.xlsx`** & **50-Worker Pro Contractor Excel Suite** (runs on Windows Excel, Mac Excel, Excel Web & Google Sheets with zero blocked `.xlsm` VBA macros).
+- **Free 5-Worker Macro-Free Starter `.xlsx`** & **[50-Worker Pro Contractor Excel Suite ($79)](https://www.etsy.com/listing/4610186233/2026-certified-payroll-excel-template)** (runs on Windows Excel, Mac Excel, Excel Web & Google Sheets with zero blocked `.xlsm` VBA macros).
 
 ---
 

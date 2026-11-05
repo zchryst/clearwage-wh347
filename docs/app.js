@@ -4,8 +4,7 @@
  */
 
 const CHECKOUT_CONFIG = {
-  // Paste your Gumroad or Polar.sh product URL here once created (takes 60 seconds):
-  proSuiteCheckoutUrl: "",
+  proSuiteCheckoutUrl: "https://www.etsy.com/listing/4610186233/2026-certified-payroll-excel-template",
   repoReleasesUrl: "https://github.com/zchryst/clearwage-wh347",
   priceUsd: 79,
   freePdfMaxRows: 5
@@ -1130,7 +1129,7 @@ window.compileOfficialDolPdf = async function() {
 };
 
 window.openProModal = function(customReason) {
-  if (CHECKOUT_CONFIG.proSuiteCheckoutUrl) {
+  if (!customReason && CHECKOUT_CONFIG.proSuiteCheckoutUrl) {
     window.open(CHECKOUT_CONFIG.proSuiteCheckoutUrl, "_blank", "noopener");
     return;
   }
